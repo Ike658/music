@@ -50,11 +50,19 @@ const routes = [
         }
     },
     {
+<<<<<<< HEAD
+        path: '/play',
+        name: 'Play',
+        component: () => import("../views/Play.vue"),
+        meta: {
+            title: "播放"
+=======
         path: '/SongList',
         name: 'SongList',
         component: () => import("../views/SongList.vue"),
         meta: {
             title: "歌单详情页"
+>>>>>>> 8867c5211d412250fdcd617dcf3b4ce694ab192f
         }
     }
 ]

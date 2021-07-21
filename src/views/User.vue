@@ -1,3 +1,4 @@
+<!-- 用户中心页 -->
 <template>
   <div id="user">
     <header>
@@ -37,12 +38,18 @@ export default {
   async mounted () {
     // let res = await this._axios.get("/user/playlist?uid=1398221246");
     let res = await this._axios.get("/user/playlist?uid=305334573");
+    // 歌单数组
     this.HotArr = res.data.playlist.slice(0, 8);
-    console.log(this.HotArr);
+    // console.log(this.HotArr);
+    // 背景图
     this.background = this.HotArr[0].creator.backgroundUrl;
+    //昵称
     this.nickname = this.HotArr[0].creator.nickname;
+    //头像
     this.avatar = this.HotArr[0].creator.avatarUrl;
+    //播放次数
     this.playCount = this.HotArr[0].playCount;
+    //粉丝数
     this.fans = this.HotArr[0].trackCount;
   },
   data: () => {
