@@ -75,7 +75,7 @@ export default {
 
       span:nth-of-type(2) {
         width: 100%;
-        transform: scale(0.5) translate(-270px);
+        transform: translate(-270px);
         color: #999;
       }
       span:nth-of-type(3) {
