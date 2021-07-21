@@ -46,8 +46,8 @@ export default {
 <style lang="scss" scoped>
 #songcomment {
   .foothead {
-    height: _vw(28);
-    line-height: _vw(28);
+    font-size: _vw(16);
+    padding: _vw(10) 0;
     background-color: #eeeff0;
   }
   .footmain {
@@ -62,11 +62,9 @@ export default {
       }
     }
     .main_content {
-      width: 100%;
       margin-left: _vw(15);
       display: flex;
       flex-direction: column;
-      text-align: left;
       span:nth-of-type(1) {
         font-size: _vw(20);
         color: #666;
@@ -74,8 +72,7 @@ export default {
       }
 
       span:nth-of-type(2) {
-        width: 100%;
-        transform: scale(0.5) translate(-270px);
+        font-size: _vw(9);
         color: #999;
       }
       span:nth-of-type(3) {
