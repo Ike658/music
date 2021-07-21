@@ -9,7 +9,7 @@
 
       <div class="headright">
         <h2>{{ songList.name }}</h2>
-        <div class="user">
+        <div class="user" @click="toUser(songList.userId)">
           <span><img :src="userName" /></span>
           <span class="userfont">{{ songList.creator.nickname }}</span>
         </div>
@@ -39,7 +39,7 @@ export default {
     }
   },
   mounted () {
-    this._axios.get("/playlist/detail?id=2420151583").then((res) => {
+    this._axios.get(`/playlist/detail?id=${this.$route.params.id}`).then((res) => {
       this.songList = res.data.playlist;
       this.songsong = res.data.playlist.tracks;
       //   console.log(res);
@@ -47,11 +47,16 @@ export default {
       this.topimg = this.songList.coverImgUrl;
       this.userName = this.songList.creator.avatarUrl;
     }),
-      this._axios.get("/comment/playlist?id=2420151583").then((res) => {
+      this._axios.get(`/comment/playlist?id=${this.$route.params.id}`).then((res) => {
         this.songCommentAll = res;
         this.songCommentList = res.data.hotComments;
         console.log(this.songCommentList);
       })
+  },
+  methods: {
+    toUser (nowId) {
+      this.$router.push(`/user/${nowId}`);
+    }
   },
   components: {
     songcom,

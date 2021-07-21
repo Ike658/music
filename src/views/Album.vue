@@ -28,28 +28,14 @@
       <h3>歌曲列表</h3>
       <albumList :songArr="songArr" :album="album"></albumList>
       <h3>精彩评论</h3>
-      <!-- <ul>
-        <li>
-          <div class="content">
-            <div class="user">
-              <img
-                src="https://p2.music.126.net/rFdDwYU7UbEQnLmHn1Fk9Q==/109951163128320062.jpg?imageView=1&type=webp&thumbnail=90x0"
-              />
-              <p>
-                <span>o-srtyer</span>
-                <span>2016年04月21日</span>
-              </p>
-            </div>
-            <p>2002 <span class="iconfont icon-dianzan"></span></p>
-          </div>
-        </li>
-      </ul> -->
+      <comment :commentArr="commentArr"></comment>
     </main>
   </div>
 </template>
 
 <script>
 import albumList from "../components/AlbumList.vue"
+import comment from "../components/comment.vue"
 export default {
   async mounted () {
     // let res = await this._axios.get("/user/playlist?uid=1398221246");
@@ -68,8 +54,12 @@ export default {
     this.description = res.data.album.description;
     // 歌单列表数组
     this.songArr = res.data.songs;
-    console.log(this.songArr);
-    console.log(this.album);
+    // console.log(this.songArr);
+    // console.log(this.album);
+
+    let res2 = await this._axios.get("/comment/album?id=32311");
+    this.commentArr = res2.data.hotComments;
+    console.log(this.commentArr);
 
   },
   data: () => {
@@ -82,10 +72,11 @@ export default {
       day: "",
       description: "",
       songArr: [],
+      commentArr: [],
     }
   },
   components: {
-    albumList
+    albumList, comment
   }
 }
 </script>

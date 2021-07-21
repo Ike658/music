@@ -26,14 +26,14 @@ export default {
 <style lang="scss" scoped>
 #main {
   .mainhead {
-    height: _vw(28);
-    line-height: _vw(28);
+    font-size: _vw(16);
     background-color: #eeeff0;
+    padding: _vw(10) 0;
   }
   .mainlic {
-    height: _vw(55);
     background-color: #fff;
     display: flex;
+    padding: _vw(10);
     box-sizing: border-box;
     border-bottom: 1px solid #ececec;
     > span {
@@ -49,11 +49,11 @@ export default {
       justify-content: center;
       > span:nth-of-type(1) {
         color: #000000;
-        font-size: _vw(20);
+        font-size: _vw(10);
       }
       > span:nth-of-type(2) {
         color: #adadad;
-        font-size: _vw(15);
+        font-size: _vw(5);
       }
     }
     i {

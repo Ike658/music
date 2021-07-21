@@ -36,8 +36,7 @@
 import userSongList from "../components/UserSongList.vue"
 export default {
   async mounted () {
-    // let res = await this._axios.get("/user/playlist?uid=1398221246");
-    let res = await this._axios.get("/user/playlist?uid=305334573");
+    let res = await this._axios.get(`/user/playlist?uid=${this.$route.params.id}`);
     // 歌单数组
     this.HotArr = res.data.playlist.slice(0, 8);
     // console.log(this.HotArr);

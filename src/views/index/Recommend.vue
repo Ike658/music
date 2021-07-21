@@ -1,7 +1,10 @@
 <template>
   <div id="recommend">
     <div class="title"><h2>编辑推荐</h2></div>
-    <EditRecommend :EditRecommendArr="EditRecommendArr"></EditRecommend>
+    <EditRecommend
+      :EditRecommendArr="EditRecommendArr"
+      @toSongList="toSongList"
+    ></EditRecommend>
     <div class="title"><h2>最新音乐</h2></div>
     <NewMusic :NewMusicArr="NewMusicArr"></NewMusic>
     <footer>
@@ -38,6 +41,11 @@ export default {
     return {
       EditRecommendArr: JSON.parse(localStorage.getItem("EditRecommendArr")) || [],
       NewMusicArr: JSON.parse(localStorage.getItem("NewMusicArr")) || []
+    }
+  },
+  methods: {
+    toSongList (nowId) {
+      this.$router.push(`/SongList/${nowId}`);
     }
   },
   components: {

@@ -34,7 +34,7 @@ const routes = [
         }]
     },
     {
-        path: '/user',
+        path: '/user/:id',
         name: 'User',
         component: () => import("../views/User.vue"),
         meta: {
@@ -58,7 +58,7 @@ const routes = [
         },
     },
     {
-        path: '/SongList',
+        path: '/SongList/:id',
         name: 'SongList',
         component: () => import("../views/SongList.vue"),
         meta: {
