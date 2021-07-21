@@ -48,6 +48,14 @@ const routes = [
         meta: {
             title: "专辑"
         }
+    },
+    {
+        path: '/SongList',
+        name: 'SongList',
+        component: () => import("../views/SongList.vue"),
+        meta: {
+            title: "歌单详情页"
+        }
     }
 ]
 

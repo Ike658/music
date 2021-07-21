@@ -16,6 +16,5 @@ export default {
   padding: 0;
   list-style: none;
   text-decoration: none;
-  font-family: cursive;
 }
 </style>
