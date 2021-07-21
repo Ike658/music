@@ -1,6 +1,9 @@
 <template>
   <div id="album">
     <header>
+      <div class="bgimg">
+        <img :src="album.blurPicUrl" />
+      </div>
       <div class="content">
         <div class="left">
           <div class="img">
@@ -21,36 +24,51 @@
     </header>
     <main>
       <section>简介：{{ description }}</section>
-      <i class="iconfont icon-arrow-left"></i>
+      <span class="iconfont icon-arrow-left"></span>
       <h3>歌曲列表</h3>
-      <ul>
+      <albumList :songArr="songArr" :album="album"></albumList>
+      <h3>精彩评论</h3>
+      <!-- <ul>
         <li>
-          <div class="left">1</div>
-          <div class="right">
-            <div class="content">
-              <p>疯狂的阳光</p>
-              <p>张悬-神的游戏</p>
+          <div class="content">
+            <div class="user">
+              <img
+                src="https://p2.music.126.net/rFdDwYU7UbEQnLmHn1Fk9Q==/109951163128320062.jpg?imageView=1&type=webp&thumbnail=90x0"
+              />
+              <p>
+                <span>o-srtyer</span>
+                <span>2016年04月21日</span>
+              </p>
             </div>
-            <i class="iconfont icon-play"></i>
+            <p>2002 <span class="iconfont icon-dianzan"></span></p>
           </div>
         </li>
-      </ul>
+      </ul> -->
     </main>
   </div>
 </template>
 
 <script>
+import albumList from "../components/AlbumList.vue"
 export default {
   async mounted () {
     // let res = await this._axios.get("/user/playlist?uid=1398221246");
     let res = await this._axios.get("/album?id=32311");
+    //专辑对象
     this.album = res.data.album;
+    // 歌手名
     this.name = res.data.album.artist.name;
+    // 专辑名
     this.albumName = res.data.album.name;
+    //发行时间戳转成年月日格式
     this.year = new Date(res.data.album.publishTime).getFullYear();
     this.month = String(new Date(res.data.album.publishTime).getMonth() + 1).padStart(2, "0");
     this.day = new Date(res.data.album.publishTime).getDate();
+    //简介描述
     this.description = res.data.album.description;
+    // 歌单列表数组
+    this.songArr = res.data.songs;
+    console.log(this.songArr);
     console.log(this.album);
 
   },
@@ -62,9 +80,13 @@ export default {
       year: "",
       month: "",
       day: "",
-      description: ""
+      description: "",
+      songArr: [],
     }
   },
+  components: {
+    albumList
+  }
 }
 </script>
 
@@ -77,7 +99,24 @@ header {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  .bgimg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    img {
+      width: 100%;
+      transform: translateY(-30%);
+    }
   }
   .content {
     position: absolute;
@@ -107,7 +146,7 @@ header {
           line-height: 20px;
           color: #fff;
           text-align: center;
-          font-size: 17px;
+          font-size: _vw(30);
           border-radius: 0 _vw(20) _vw(20) 0;
           background-color: #d43c33;
         }
@@ -148,13 +187,13 @@ main {
     padding: 10px 10px 0 15px;
     font-size: 14px;
     color: #676666;
-    height: 50px;
+    height: _vw(120);
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
-  i {
+  > span {
     float: right;
     color: #676666;
     transform: rotate(90deg);
@@ -168,43 +207,6 @@ main {
     text-indent: 1em;
     color: #5a5155;
     background-color: #eeeff0;
-  }
-  ul {
-    li {
-      display: flex;
-      height: _vw(110);
-      .left {
-        width: 10%;
-        text-align: center;
-        color: #8aa2c6;
-        line-height: _vw(110);
-      }
-      .right {
-        width: 90%;
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .content {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          p:first-child {
-            font-size: 17px;
-          }
-          p:nth-child(2) {
-            font-size: 12px;
-            color: #89919a;
-          }
-        }
-        i {
-          transform: translateX(-10px) rotate(-120deg);
-          font-size: 20px;
-          color: #89919a;
-        }
-      }
-    }
   }
 }
 </style>

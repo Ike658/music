@@ -24,10 +24,13 @@ import NewMusic from "../../components/NewMusic.vue"
 export default {
   async mounted () {
     let res = await this._axios.get("/personalized");
+    //编辑推荐数组
     this.EditRecommendArr = res.data.result.slice(0, 6);
     // console.log(this.EditRecommendArr);
     // console.log(res.data.result);
+
     let res2 = await this._axios.get("/personalized/newsong");
+    //最新音乐
     this.NewMusicArr = res2.data.result;
     console.log(res2.data.result);
   },

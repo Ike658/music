@@ -48,6 +48,14 @@ const routes = [
         meta: {
             title: "专辑"
         }
+    },
+    {
+        path: '/play',
+        name: 'Play',
+        component: () => import("../views/Play.vue"),
+        meta: {
+            title: "播放"
+        }
     }
 ]
 
