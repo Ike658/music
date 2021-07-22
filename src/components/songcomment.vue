@@ -10,9 +10,11 @@
           <div class="main_content">
             <span>{{ item.user.nickname }}</span>
             <span>{{ DateTime(item.time) }}</span>
-            <span>{{ item.content }}</span>
+            <div class="content_comment">
+              <span>{{ item.content }}</span>
+            </div>
           </div>
-          <span class="main_right">
+          <span class="main_right iconfont icon-dianzan">
             {{ item.likedCount }}
             <!-- 头像右下logo，user.avatarDetail.identityIconUrl -->
           </span>
@@ -55,6 +57,8 @@ export default {
     display: flex;
     border-bottom: 1px solid #eee;
     padding: _vw(18);
+    background-color: #fff;
+
     .main_left {
       img {
         width: _vw(50);
@@ -75,9 +79,11 @@ export default {
         font-size: _vw(9);
         color: #999;
       }
-      span:nth-of-type(3) {
-        font-size: _vw(18);
-        color: #333;
+      > .content_comment {
+        > span {
+          font-size: _vw(18);
+          color: #333;
+        }
       }
     }
     .main_right {

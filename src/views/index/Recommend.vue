@@ -1,10 +1,7 @@
 <template>
   <div id="recommend">
     <div class="title"><h2>编辑推荐</h2></div>
-    <EditRecommend
-      :EditRecommendArr="EditRecommendArr"
-      @toSongList="toSongList"
-    ></EditRecommend>
+    <EditRecommend :EditRecommendArr="EditRecommendArr"></EditRecommend>
     <div class="title"><h2>最新音乐</h2></div>
     <NewMusic :NewMusicArr="NewMusicArr"></NewMusic>
     <footer>
@@ -29,23 +26,18 @@ export default {
     let res = await this._axios.get("/personalized");
     //编辑推荐数组
     this.EditRecommendArr = res.data.result.slice(0, 6);
-    // console.log(this.EditRecommendArr);
+    console.log(this.EditRecommendArr);
     // console.log(res.data.result);
 
     let res2 = await this._axios.get("/personalized/newsong");
     //最新音乐
     this.NewMusicArr = res2.data.result;
-    console.log(res2.data.result);
+    // console.log(res2.data.result);
   },
   data: () => {
     return {
       EditRecommendArr: JSON.parse(localStorage.getItem("EditRecommendArr")) || [],
       NewMusicArr: JSON.parse(localStorage.getItem("NewMusicArr")) || []
-    }
-  },
-  methods: {
-    toSongList (nowId) {
-      this.$router.push(`/SongList/${nowId}`);
     }
   },
   components: {

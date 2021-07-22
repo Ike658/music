@@ -1,5 +1,8 @@
 <template>
   <div id="songlist">
+    <div class="bgimg">
+      <img :src="topimg" alt="" />
+    </div>
     <div class="headportrait">
       <div class="headleft">
         <img :src="topimg" alt="" />
@@ -20,7 +23,7 @@
 
     <songfot :songCommentListArr="songCommentList"></songfot>
 
-    <div class="total">查看全部{{ total }}条评论</div>
+    <div class="total">查看全部{{ tota }}条评论</div>
   </div>
 </template>
 
@@ -37,12 +40,13 @@ export default {
       songCommentAll: [],
       songCommentList: [],
       name: "",
-      total: 0,
+      tota: 0,
       playCount: 0,
     }
   },
   mounted () {
     this._axios.get(`/playlist/detail?id=${this.$route.params.id}`).then((res) => {
+      this.$route.params.id;
       this.songList = res.data.playlist;
       this.songsong = res.data.playlist.tracks;
       console.log(res);
@@ -54,15 +58,12 @@ export default {
 
     }),
       this._axios.get(`/comment/playlist?id=${this.$route.params.id}`).then((res) => {
-        this.songCommentAll = res;
+        this.songCommentAll = res.data;
         this.songCommentList = res.data.hotComments;
-        this.total = this.songCommentAll.data.total;
+        this.tota = this.songCommentAll.total;
         // console.log(this.songCommentList);
       })
-
-
   },
-
   components: {
     songcom,
     songfot,
@@ -80,21 +81,19 @@ export default {
 
 <style lang="scss" scoped>
 #songlist {
-  height: _vw(205);
   position: relative;
-  &::before {
-    content: "";
+  .bgimg {
     position: absolute;
-    top: 0;
+    top: -10%;
     left: 0;
     width: 100%;
-    height: _vw(305);
-    background: url("//music.163.com/api/img/blur/109951165671785433?param=170y170")
-      no-repeat;
-    z-index: -2;
-    background-position: 63% 55%;
-    background-size: 180% 365%;
-    filter: blur(11px);
+    height: 50%;
+    z-index: -1;
+    overflow: hidden;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
   }
   &::after {
     content: "";
@@ -110,7 +109,7 @@ export default {
   .headportrait {
     width: 100%;
     height: 100%;
-    padding: 25px;
+    padding: _vw(25);
     display: flex;
     box-sizing: border-box;
     > .headleft {
@@ -132,8 +131,8 @@ export default {
       span {
         position: absolute;
         font-size: _vw(10);
-        height: 18px;
-        line-height: 18px;
+        height: _vw(28);
+        line-height: _vw(28);
         width: 40px;
         text-align: center;
         top: 5%;

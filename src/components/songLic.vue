@@ -74,8 +74,7 @@ export default {
     font-weight: 400;
     background-color: #fff;
     font-size: _vw(16);
-    line-height: _vw(30);
-    height: _vw(30);
+    padding: _vw(20);
   }
 }
 </style>
