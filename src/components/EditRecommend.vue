@@ -3,14 +3,14 @@
   <div id="EditRecommend">
     <ul>
       <template v-for="item in EditRecommendArr">
-        <li :key="item.id" @click="toSongList(item.id)">
+        <router-link tag="li" :key="item.id" :to="`/SongList/${item.id}`">
           <img :src="item.picUrl" />
           <span>{{ item.name }}</span>
           <p>
             <i class="iconfont icon-headset"></i>
             <span>{{ parseFloat(item.playCount / 10000).toFixed(1) }}万</span>
           </p>
-        </li>
+        </router-link>
       </template>
     </ul>
   </div>
@@ -19,11 +19,6 @@
 <script>
 export default {
   props: { "EditRecommendArr": Array },
-  methods: {
-    toSongList (nowId) {
-      this.$emit("toSongList", nowId);
-    }
-  }
 }
 </script>
 

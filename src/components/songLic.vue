@@ -3,14 +3,19 @@
     <div id="main">
       <div class="mainhead">歌曲列表</div>
       <template v-for="(item, index) in songArr">
-        <div class="mainlic" :key="item.id">
+        <router-link
+          tag="div"
+          :to="`/play/${item.id}`"
+          class="mainlic"
+          :key="item.id"
+        >
           <span>{{ ++index }}</span>
           <div class="maincen">
             <span>{{ item.name }}</span>
             <span>{{ item.ar[0].name + "-" + item.al.name }}</span>
           </div>
           <i class="iconfont icon-play"></i>
-        </div>
+        </router-link>
       </template>
       <div class="main_downlond">查看更多歌曲，请下载客户端</div>
     </div>

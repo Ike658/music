@@ -50,7 +50,7 @@ const routes = [
         }
     },
     {
-        path: '/play',
+        path: '/play/:id',
         name: 'Play',
         component: () => import("../views/Play.vue"),
         meta: {

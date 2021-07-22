@@ -51,10 +51,10 @@ export default {
         width: _vw(600);
         height: _vw(100);
         p {
-          font-size: _vw(40);
+          font-size: _vw(28);
         }
         p:nth-child(2) {
-          font-size: _vw(28);
+          font-size: _vw(24);
           color: #c1c1c1;
         }
       }

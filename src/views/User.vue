@@ -132,6 +132,7 @@ main {
       background-color: #c1c1c1;
       line-height: _vw(80);
       height: _vw(80);
+      text-indent: 1em;
     }
   }
 }

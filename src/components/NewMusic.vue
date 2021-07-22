@@ -3,7 +3,7 @@
   <div id="NewMusic">
     <ul>
       <template v-for="item in NewMusicArr">
-        <router-link tag="li" :key="item.id" to="#">
+        <router-link tag="li" :key="item.id" :to="`/play/${item.id}`">
           <div class="left">
             <p>
               <span>{{ item.name }}</span>

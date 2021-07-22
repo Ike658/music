@@ -4,15 +4,15 @@
       <div class="headleft">
         <img :src="topimg" alt="" />
         <span>歌单</span>
-        <i class="iconfont icon-headset">331.8万</i>
+        <i class="iconfont icon-headset">{{ playCount }}万</i>
       </div>
 
       <div class="headright">
         <h2>{{ songList.name }}</h2>
-        <div class="user" @click="toUser(songList.userId)">
+        <router-link tag="div" class="user" :to="`/user/${songList.userId}`">
           <span><img :src="userName" /></span>
-          <span class="userfont">{{ songList.creator.nickname }}</span>
-        </div>
+          <span class="userfont">{{ name }}</span>
+        </router-link>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
 
     <songfot :songCommentListArr="songCommentList"></songfot>
 
-    <div class="total">查看全部{{ songCommentAll.data.total }}条评论</div>
+    <div class="total">查看全部{{ total }}条评论</div>
   </div>
 </template>
 
@@ -36,28 +36,33 @@ export default {
       songsong: [],
       songCommentAll: [],
       songCommentList: [],
+      name: "",
+      total: 0,
+      playCount: 0,
     }
   },
   mounted () {
     this._axios.get(`/playlist/detail?id=${this.$route.params.id}`).then((res) => {
       this.songList = res.data.playlist;
       this.songsong = res.data.playlist.tracks;
-      //   console.log(res);
+      console.log(res);
       //   .data.playlist.tracks[0].id  
       this.topimg = this.songList.coverImgUrl;
       this.userName = this.songList.creator.avatarUrl;
+      this.name = this.songList.creator.nickname;
+      this.playCount = parseFloat(this.songList.playCount / 10000).toFixed(2);
+
     }),
       this._axios.get(`/comment/playlist?id=${this.$route.params.id}`).then((res) => {
         this.songCommentAll = res;
         this.songCommentList = res.data.hotComments;
-        console.log(this.songCommentList);
+        this.total = this.songCommentAll.data.total;
+        // console.log(this.songCommentList);
       })
+
+
   },
-  methods: {
-    toUser (nowId) {
-      this.$router.push(`/user/${nowId}`);
-    }
-  },
+
   components: {
     songcom,
     songfot,
@@ -118,10 +123,11 @@ export default {
       }
       i {
         position: absolute;
-        font-size: _vw(10);
+        font-size: 10px;
         top: 0;
         right: 0;
         color: #fff;
+        transform: scale(0.6) translateX(20px);
       }
       span {
         position: absolute;
