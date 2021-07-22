@@ -12,7 +12,7 @@
 
       <div class="headright">
         <h2>{{ songList.name }}</h2>
-        <div class="user">
+        <div class="user" @click="toUser(songList.userId)">
           <span><img :src="userName" /></span>
           <span class="userfont">{{ name }}</span>
         </div>
@@ -44,7 +44,10 @@ export default {
   },
   mounted () {
     this._axios.get(`/playlist/detail?id=${this.$route.params.id}`).then((res) => {
+<<<<<<< HEAD
       this.$route.params.id;
+=======
+>>>>>>> fc609134a2e82f7b99a5e0a00988ae8505c497ec
       this.songList = res.data.playlist;
       this.songsong = res.data.playlist.tracks;
       console.log(res);
@@ -53,10 +56,19 @@ export default {
       this.name = this.songList.creator.nickname;
     }),
       this._axios.get(`/comment/playlist?id=${this.$route.params.id}`).then((res) => {
+<<<<<<< HEAD
         this.songCommentAll = res.data;
+=======
+        this.songCommentAll = res;
+>>>>>>> fc609134a2e82f7b99a5e0a00988ae8505c497ec
         this.songCommentList = res.data.hotComments;
         // console.log(res.data.hotComments[8].beReplied[0].user.nickname);
       })
+  },
+  methods: {
+    toUser (nowId) {
+      this.$router.push(`/user/${nowId}`);
+    }
   },
   components: {
     songcom,

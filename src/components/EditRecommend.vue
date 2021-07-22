@@ -3,8 +3,12 @@
   <div id="EditRecommend">
     <ul>
       <template v-for="item in EditRecommendArr">
+<<<<<<< HEAD
         <!-- <router-link tag="li" :key="item.id"> -->
         <li :key="item.id" @click="sonid(item.id)">
+=======
+        <li :key="item.id" @click="toSongList(item.id)">
+>>>>>>> fc609134a2e82f7b99a5e0a00988ae8505c497ec
           <img :src="item.picUrl" />
           <span>{{ item.name }}</span>
           <p>
@@ -12,7 +16,10 @@
             <span>{{ parseFloat(item.playCount / 10000).toFixed(1) }}万</span>
           </p>
         </li>
+<<<<<<< HEAD
         <!-- </router-link> -->
+=======
+>>>>>>> fc609134a2e82f7b99a5e0a00988ae8505c497ec
       </template>
     </ul>
   </div>
@@ -22,11 +29,18 @@
 export default {
   props: { "EditRecommendArr": Array },
   methods: {
+<<<<<<< HEAD
     sonid (itemid) {
       this.$emit("sonid", itemid);
     }
   }
 
+=======
+    toSongList (nowId) {
+      this.$emit("toSongList", nowId);
+    }
+  }
+>>>>>>> fc609134a2e82f7b99a5e0a00988ae8505c497ec
 }
 </script>
 

@@ -3,7 +3,11 @@
     <div class="title"><h2>编辑推荐</h2></div>
     <EditRecommend
       :EditRecommendArr="EditRecommendArr"
+<<<<<<< HEAD
       @sonid="sonid"
+=======
+      @toSongList="toSongList"
+>>>>>>> fc609134a2e82f7b99a5e0a00988ae8505c497ec
     ></EditRecommend>
     <div class="title"><h2>最新音乐</h2></div>
     <NewMusic :NewMusicArr="NewMusicArr"></NewMusic>
@@ -44,8 +48,13 @@ export default {
     }
   },
   methods: {
+<<<<<<< HEAD
     sonid (itemid) {
       this.$router.push(`/SongList/${itemid}`)
+=======
+    toSongList (nowId) {
+      this.$router.push(`/SongList/${nowId}`);
+>>>>>>> fc609134a2e82f7b99a5e0a00988ae8505c497ec
     }
   },
   components: {
