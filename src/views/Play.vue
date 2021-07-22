@@ -24,8 +24,8 @@
         <div class="lyric">
           <p>{{ songName }}-{{ playerName }}</p>
           <ul>
-            <template v-for="(item, index) in textArr">
-              <li :key="index">
+            <template v-for="(item, index) in currentArr">
+              <li :key="index" :style="lyric">
                 {{ item }}
               </li>
             </template>
@@ -43,12 +43,17 @@ export default {
     return {
       picUrl: "",
       lyricArr: [],
-      timeArr: [],
-      textArr: [],
+      currentArr: [],
       musicUrl: "",
       isPlay: true,
       songName: "",
-      playerName: ""
+      playerName: "",
+      timer: "",
+      nowIndex: 0,
+      lyric: {
+        transition: " all .3s",
+        transform: "translat,eY(0)",
+      },
     }
   },
   methods: {
@@ -56,6 +61,9 @@ export default {
       if (this.isPlay) {
         this.$refs.music.play();
         this.$refs.ro.classList.add("active");
+        setInterval(() => {
+          this.timer = parseInt(this.$refs.music.currentTime)
+        }, 50)
         // console.log(this.$refs.music.currentTime);
       } else {
         this.$refs.music.pause();
@@ -63,6 +71,15 @@ export default {
       }
       this.isPlay = !this.isPlay;
     }
+  },
+  watch: {
+    timer () {
+      for (let index in this.currentArr) {
+        if (this.timer == index) {
+          this.lyric.transform = `translateY(-${this.nowIndex++}00%)`;
+        }
+      }
+    },
   },
   async mounted () {
     let res = await this._axios.get(`/song/detail?ids=${this.$route.params.id}`);
@@ -72,14 +89,23 @@ export default {
     this.playerName = res.data.songs[0].ar[0].name;
 
     let res2 = await this._axios.get(`/lyric?id=${this.$route.params.id}`);
-    this.lyric = res2.data.lrc.lyric.split("\n");
-    this.lyric.forEach(item => {
-      this.timeArr.push(item.slice(1, item.indexOf("]")));
-      this.textArr.push(item.slice(item.indexOf("]") + 1));
+    // this.lyricArr = res2.data.lrc.lyric.split("\n");
+
+    this.lyricArr = res2.data.lrc.lyric.split('[').slice(1); // 先以[进行分割
+    let lrcObj = {};
+    this.lyricArr.forEach(item => {
+      let arr = item.split(']');	// 再分割右括号
+      // 时间换算成秒
+      let m = parseInt(arr[0].split(':')[0])
+      let s = parseInt(arr[0].split(':')[1])
+      arr[0] = m * 60 + s;
+      if (arr[1] != '\n') { // 去除歌词中的换行符
+        lrcObj[arr[0]] = arr[1];
+      }
     })
-    // console.log(this.timeArr);
-    // console.log(this.textArr);
-    // console.log(res2.data);
+    // 存储数据
+    this.currentArr = lrcObj;
+    console.log(this.currentArr);
 
     let res3 = await this._axios.get(`/song/url?id=${this.$route.params.id}`);
     this.musicUrl = res3.data.data[0].url;
@@ -194,10 +220,9 @@ main {
       color: whitesmoke;
       text-align: center;
       ul {
-        height: _vw(130);
+        margin-top: _vw(50);
+        height: _vw(80);
         overflow: hidden;
-        li {
-        }
       }
     }
   }
