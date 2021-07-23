@@ -1,7 +1,12 @@
 <template >
   <section>
     <template v-for="(item, index) in evenArr">
-      <div id="micList" :key="item.id">
+      <router-link
+        tag="div"
+        :to="`/play/${item.id}`"
+        id="micList"
+        :key="item.id"
+      >
         <div class="main">
           <div class="main_content">
             <div class="main_left" :class="{ active: index < 3 }">
@@ -22,7 +27,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </router-link>
     </template>
   </section>
 </template>
