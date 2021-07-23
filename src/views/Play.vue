@@ -49,6 +49,7 @@ export default {
       songName: "",
       playerName: "",
       timer: "",
+      interVal: "",
       nowIndex: 0,
       lyric: {
         transition: " all .3s",
@@ -61,13 +62,14 @@ export default {
       if (this.isPlay) {
         this.$refs.music.play();
         this.$refs.ro.classList.add("active");
-        setInterval(() => {
+        this.interVal = setInterval(() => {
           this.timer = parseInt(this.$refs.music.currentTime)
         }, 50)
         // console.log(this.$refs.music.currentTime);
       } else {
         this.$refs.music.pause();
         this.$refs.ro.classList.remove("active");
+        clearInterval(this.interVal);
       }
       this.isPlay = !this.isPlay;
     }
@@ -80,9 +82,13 @@ export default {
         }
       }
     },
+    $route () {
+      clearInterval(this.interVal);
+    }
   },
   async mounted () {
     let res = await this._axios.get(`/song/detail?ids=${this.$route.params.id}`);
+    console.log(this.$route);
     console.log(res.data);
     this.picUrl = res.data.songs[0].al.picUrl;
     this.songName = res.data.songs[0].al.name;
@@ -96,8 +102,8 @@ export default {
     this.lyricArr.forEach(item => {
       let arr = item.split(']');	// 再分割右括号
       // 时间换算成秒
-      let m = parseInt(arr[0].split(':')[0])
-      let s = parseInt(arr[0].split(':')[1])
+      let m = parseInt(arr[0].split(':')[0]);
+      let s = parseInt(arr[0].split(':')[1]);
       arr[0] = m * 60 + s;
       if (arr[1] != '\n') { // 去除歌词中的换行符
         lrcObj[arr[0]] = arr[1];
